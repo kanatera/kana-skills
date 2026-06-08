@@ -1,0 +1,17 @@
+# Secrets — never commit real values
+.env
+*.env
+!.env.example
+**/token
+bws-token*
+
+# Claude Code local state
+.claude/settings.local.json
+
+# Python (vendored MCP)
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+*.egg-info/
