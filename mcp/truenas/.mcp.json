@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "truenas": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/home/kanatera/dev/kana-skills/mcp/truenas",
+        "python",
+        "main.py"
+      ],
+      "env": {
+        "TRUENAS_HOST": "http://192.168.7.17",
+        "TRUENAS_API_KEY": "${TRUENAS_API_KEY}"
+      }
+    }
+  }
+}

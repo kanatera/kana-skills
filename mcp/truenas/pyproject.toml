@@ -1,0 +1,13 @@
+[project]
+name = "truenas-mcp"
+version = "0.1.0"
+description = "MCP server for TrueNAS Scale"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.27.1",
+]
+
+[project.scripts]
+truenas-mcp = "main:mcp.run"
