@@ -11,7 +11,7 @@ from [Bitwarden Secrets Manager](https://bitwarden.com/products/secrets-manager/
 |------|------|--------------|
 | [`skills/truenas-app-setup/`](skills/truenas-app-setup/SKILL.md) | Skill | Installs a catalog app on my TrueNAS Scale host via the `truenas` MCP, applying my host-path storage conventions. |
 | [`commands/container-deploy.md`](commands/container-deploy.md) | Slash command | Builds an image with podman, runs a local health check, and pushes to my LAN registry. |
-| [`mcp/truenas/`](mcp/truenas/) | MCP server | Python MCP exposing TrueNAS Scale app/dataset/filesystem tools over the TrueNAS API. |
+| [`mcp/truenas/`](mcp/truenas/) | MCP server | Python MCP exposing TrueNAS Scale app/dataset/filesystem tools over the TrueNAS JSON-RPC websocket API (25.04+). |
 | [`CLAUDE.md`](CLAUDE.md) | Config | My user-wide Claude Code instructions (git-branching convention). Auto-loads when working in this repo. |
 
 ## Install
@@ -67,5 +67,7 @@ See [`.env.example`](.env.example) for the full list of variables.
 
 - The LAN container registry (`192.168.7.17:5000`) is unauthenticated plain-HTTP and LAN-only,
   so `container-deploy.md` does no `podman login`.
-- `mcp/truenas/main.py` reads `TRUENAS_HOST` + `TRUENAS_API_KEY` from the environment only;
-  it has no hardcoded credentials.
+- `mcp/truenas/main.py` reads `TRUENAS_HOST`, `TRUENAS_USER` and `TRUENAS_API_KEY` from the
+  environment only; it has no hardcoded credentials. `TRUENAS_HOST` must be `https://` (the
+  server refuses `http://`, because TrueNAS revokes API keys sent over plain HTTP). Details in
+  [`mcp/truenas/README.md`](mcp/truenas/README.md).
