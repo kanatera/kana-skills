@@ -90,7 +90,10 @@ automatically). Groups: *Media & Entertainment*, *Downloads & Media Management*,
 Read it with `read_file`, edit locally, validate the YAML, write a backup (`services.yaml.pre-<app>`, then
 `chown_path` it to `1000:1000`), then `write_file` the new version (overwrite keeps owner and mode) and
 read it back. Verify via `curl http://192.168.7.17:9999/api/services` and the widget proxy
-`/api/services/proxy?group=<group>&service=<Name>&index=0&endpoint=<endpoint>`.
+`/api/services/proxy?group=<group>&service=<Name>&index=0&endpoint=<key>`, where `<key>` is the
+widget's **mapping name** from Homepage's `src/widgets/<type>/widget.js` (e.g. `status`, `alerts` for
+TrueNAS) — an API path there gives "Unsupported service endpoint". The TrueNAS widget uses `version: 2`
+(websocket) with an `https://` url and the read-only `homepage` user's API key.
 The file contains other apps' keys and passwords — never print it unredacted.
 
 ## Notes / gotchas
