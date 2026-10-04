@@ -69,8 +69,12 @@ EOF
 8. **Homepage:** add the app to `/mnt/dlsapps/apps/homepage/services.yaml` (see below).
 9. **Report** the URL `http://192.168.7.17:<port>` and any generated secret (it's stored in the app config).
 
-Changing settings later: `main.call("app.update", "<name>", {"values": {...partial...}})` → job id.
-Re-check `app.config` afterwards, as in step 7.
+Changing settings later: `app.update` **replaces each top-level section you send** (`network`, `storage`,
+the app's own section…) — it does not merge inside it. Read `main.call("app.config", "<name>")`, copy the
+whole section, change one key, and send that section back:
+`main.call("app.update", "<name>", {"values": {"<section>": section}})` → job id. Sending a single key
+either fails (`Field required` for e.g. bitcoind's `rpc_password`) or silently resets its siblings to
+defaults (Scrutiny's InfluxDB port flipped back to `published`). Diff `app.config` before vs after.
 
 ## Homepage (dashboard on http://192.168.7.17:9999)
 Config: `/mnt/dlsapps/apps/homepage/services.yaml` (owner `1000:1000`, mode `0664`; Homepage reloads it
