@@ -91,6 +91,15 @@ automatically). Groups: *Media & Entertainment*, *Downloads & Media Management*,
           url: http://192.168.7.17:<port>
 ```
 
+Also link every app tile to its container so Homepage shows running/health status plus CPU/memory:
+add `server: truenas` and `container: ix-<app-name>-<service>-1` (the service name comes from
+`get_app("<name>")["active_workloads"]["container_details"]`, e.g. Immich → `ix-immich-server-1`).
+`docker.yaml` points `truenas` at the **`docker-socket-proxy`** custom app (`tecnativa/docker-socket-proxy`,
+`CONTAINERS=1`, `POST=0`, socket mounted `:ro`, port bound to `127.0.0.1:2375` only) — never enable Homepage's
+`mount_docker_socket` (root-equivalent access for an unauthenticated LAN page). Verify with
+`curl http://192.168.7.17:9999/api/docker/statuses?server=truenas` — an unlinked or misnamed container is
+simply absent from the result.
+
 Read it with `read_file`, edit locally, validate the YAML, write a backup (`services.yaml.pre-<app>`, then
 `chown_path` it to `1000:1000`), then `write_file` the new version (overwrite keeps owner and mode) and
 read it back. Verify via `curl http://192.168.7.17:9999/api/services` and the widget proxy
