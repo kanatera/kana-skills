@@ -26,3 +26,5 @@ skills, slash commands, and MCP servers.
 - Whenever **this CLAUDE.md** is updated, **ask the same** — its copy lives at the repo root.
 
 Just ask; don't sync or push automatically. Respect any artifact marked to keep private.
+
+@RTK.md
