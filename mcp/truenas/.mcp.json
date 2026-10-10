@@ -11,8 +11,9 @@
         "main.py"
       ],
       "env": {
-        "TRUENAS_HOST": "http://192.168.7.17",
-        "TRUENAS_API_KEY": "${TRUENAS_API_KEY}"
+        "TRUENAS_HOST": "https://192.168.7.17",
+        "TRUENAS_API_KEY": "${TRUENAS_API_KEY}",
+        "TRUENAS_USER": "${TRUENAS_USER:-admin}"
       }
     }
   }
